@@ -1,51 +1,49 @@
 
-import React, { useState } from 'react'
-import { Navbar } from './Components/Navbar/Navbar'
-import { Route, Routes } from 'react-router-dom';
-import { Home } from './Pages/Home/Home';
-import RegisterModel from './Components/Auth/RegisterModel';
-import LoginModel from './Components/Auth/LoginModel';
-import { Toaster } from 'react-hot-toast';
-
+//Imports
+import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+import { PublicLayout } from './Layouts/PublicLayout/PublicLayout'
+import { AppLayout } from './Layouts/AppLayout/AppLayout'
+import{Landing}from"./Pages/Landing/Landing";
+import { Login } from './Pages/Login/Login';
+import { Verify } from './Pages/Verify/Verify';
+import{Register}from"./Pages/Register/Register";
+import{Feed}from"./Pages/Feed/Feed";
+import{Profile}from"./Pages/Profile/Profile";
+import{ForgotPassword}from"./Pages/ForgotPassword/ForgotPassword";
 export default function App() {
-  //modals states  
-const [showLogin,setLoginShow] = useState(false);
-const[showRegister,setRegisterShow] = useState(false);
+
+
 
 
 
 
   return (
-<>
-{/* Navbar */}
-<Navbar  onRegisterClick={()=>{
-  setRegisterShow(true);
-  setLoginShow(false);
-  }}
-  
-        onLoginClick={()=>{
-          setLoginShow(true);
-          setRegisterShow(false);
-        }}/>
+    <Routes>
 
-  <Toaster position="top-left"/>      
+      
+      {/* Public Pages */}
+      <Route element={<PublicLayout/>} >
+        <Route path="/" element={<Landing/>}/>
+        <Route path="/register" element={<Register/>}/>
+        <Route path="/login" element={<Login/>}/>
+        <Route path="/forgot-password" element={<ForgotPassword/>}/>
+        <Route path="/verify" element={<Verify/>}/>
+      
+      </Route>
 
-{/* pages */}
-<Routes>
-  <Route path="/" Component={Home}/>
-</Routes>
-
-{/* Register Modal */}
-{showRegister && (
-  <RegisterModel onClose={()=>setRegisterShow(false)}/>
-)}
+    {/* App Pages */}
+    <Route element={<AppLayout/>}>
+        <Route path="/feed" element={<Feed/>}/>
+        <Route path="/profile" element={<Profile/>}/>
+    </Route>
 
 
-{/* login Modal */}
-{showLogin &&(
-  <LoginModel onClose={()=>setLoginShow(false)}/>
-)}
+    </Routes>
 
-</>
+
+
+
+
   )
 }
