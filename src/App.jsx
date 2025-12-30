@@ -11,6 +11,7 @@ import{Register}from"./Pages/Register/Register";
 import{Feed}from"./Pages/Feed/Feed";
 import{Profile}from"./Pages/Profile/Profile";
 import{ForgotPassword}from"./Pages/ForgotPassword/ForgotPassword";
+import{ProtectedLayout}from"./Layouts/ProtectedLayout/ProtectedLayout";
 export default function App() {
 
 
@@ -31,12 +32,15 @@ export default function App() {
         <Route path="/verify" element={<Verify/>}/>
       
       </Route>
-
+                      {/* protected Pages */}
     {/* App Pages */}
-    <Route element={<AppLayout/>}>
-        <Route path="/feed" element={<Feed/>}/>
-        <Route path="/profile" element={<Profile/>}/>
+    <Route element={<ProtectedLayout/>}>
+        <Route element={<AppLayout/>}>
+            <Route path="/feed" element={<Feed/>}/>
+            <Route path="/profile" element={<Profile/>}/>
+        </Route>
     </Route>
+    
 
 
     </Routes>

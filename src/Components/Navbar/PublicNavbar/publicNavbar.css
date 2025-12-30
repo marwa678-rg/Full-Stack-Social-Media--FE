@@ -1,0 +1,31 @@
+
+
+.auth-btn {
+  border-radius: 999px;
+  font-weight: 600;
+  padding: 6px 18px;
+  transition: all 0.25s ease;
+}
+
+.auth-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+
+/* default (desktop) */
+.nav-auth-btn {
+  margin-left: 8px;
+  margin-top:8px;
+}
+@media(max-width:991px){
+  .nav-auth-btn{
+    width:auto;
+    margin:12px 0px;
+    display:inline-block;
+
+  }
+  .navbar-collapse {
+    text-align: center;
+  }
+
+}

@@ -1,8 +1,26 @@
 
+import React from "react"
 import "./landing.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 export function Landing() {
+//navigate
+const go = useNavigate();
+//get token to check
+const token = localStorage.getItem("token");
+//handle get started
+function handleGetStarted(){
+  if(token){
+    go("/feed");
+  }else{
+    go("/register");
+  }
+}
+
+
+
+
   return (
     <section className="landing">
       <div className="landing-content">
@@ -16,12 +34,12 @@ export function Landing() {
         </p>
 
         <div className="landing-actions">
-          <Link to="/register" className="btn-primary">
+          <button  className="btn-primary"
+          onClick={handleGetStarted}
+          >
             Get Started
-          </Link>
-          <Link to="/login" className="btn-outline">
-            Login
-          </Link>
+          </button>
+          
         </div>
       </div>
     </section>
