@@ -31,15 +31,7 @@ function handleLogout(){
 
         <Navbar.Collapse id="public-navbar"  className='justify-content-end'>
           <Nav>
-            {!token && (
-              <Button as={Link} to="/login"
-              variant='outline-light'
-              className='auth-btn nav-auth-btn'
-              size="sm"
-              >
-                Login
-              </Button>
-            )}
+           
 
             {token &&(
               <Button variant="outline-light"

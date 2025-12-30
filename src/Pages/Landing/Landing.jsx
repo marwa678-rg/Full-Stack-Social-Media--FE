@@ -7,15 +7,10 @@ import { useNavigate } from "react-router-dom";
 export function Landing() {
 //navigate
 const go = useNavigate();
-//get token to check
-const token = localStorage.getItem("token");
+
 //handle get started
 function handleGetStarted(){
-  if(token){
-    go("/feed");
-  }else{
-    go("/register");
-  }
+ go("/register")
 }
 
 
