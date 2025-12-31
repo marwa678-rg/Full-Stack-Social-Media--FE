@@ -1,24 +1,72 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 //CSS imports
 import "../../styles/auth.css"
 import { Button, Card, Container, Form } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom';
+import { handleError } from '../../utilis/errorHandler';
+import { api } from '../../API/apis';
+import toast from 'react-hot-toast';
 
 export const Verify = () => {
-//states
+
+//navigate
+const navigate=useNavigate();
 //refs
 const otpRef=useRef(null);
-const emailRef=useRef(null);
+//get verifyemail 
 const storedEmail = localStorage.getItem("verifyEmail")
+useEffect(()=>{
+
+//check storedEmail
+if(!storedEmail){
+  navigate("/register")
+}
+  
+},[storedEmail,navigate]);
+
 //_____________________________handlers__________________________________//
 
 //handleSubmit
 async function handleSubmit(e){
 e.preventDefault();
+//data
+const otp=otpRef.current.value;
+const email=storedEmail;
+if(!otp){
+  toast.error("Please enter otp");
+  return;
+}
+try {
+  //Call end point => /api/v1/auth/verify-otp
+const response = await api.post("/api/v1/auth/verify-otp",{otp,email})
+toast.success(response.data?.message);
+
+//clear verifyemail 
+localStorage.removeItem("verifyEmail")
+
+
+//navigate login route
+navigate("/login");
+
+
+} catch (error) {
+  handleError(error);
+}
 
 }
 
+//----------------------------------------------------------------//
+
 //handle resend
 async function handleResend(){
+  try {
+    //call end point =>/api/v1/auth/resendOtp
+    const response = await api.post("/api/v1/auth/resendOtp",{email:storedEmail});
+
+    toast.success(response.data?.message);
+  } catch (error) {
+    handleError(error);
+  }
 
 }
 
@@ -40,8 +88,8 @@ async function handleResend(){
                     <Form.Control
                       type="email"
                       placeholder="Email"
-                      ref={emailRef}
-                      required
+                     value={storedEmail ||""}
+                      readOnly
                     />
                 </Form.Group>
 

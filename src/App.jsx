@@ -12,6 +12,9 @@ import{Feed}from"./Pages/Feed/Feed";
 import{Profile}from"./Pages/Profile/Profile";
 import{ForgotPassword}from"./Pages/ForgotPassword/ForgotPassword";
 import{ProtectedLayout}from"./Layouts/ProtectedLayout/ProtectedLayout";
+import { Toaster } from 'react-hot-toast';
+import { ResetPassword } from './Pages/ResetPassword/ResetPassword';
+
 export default function App() {
 
 
@@ -20,8 +23,12 @@ export default function App() {
 
 
   return (
-    <Routes>
+    <>
 
+        {/*  Toaster  */}
+      <Toaster position="top-left"/>
+
+    <Routes>
       
       {/* Public Pages */}
       <Route element={<PublicLayout/>} >
@@ -29,6 +36,7 @@ export default function App() {
         <Route path="/register" element={<Register/>}/>
         <Route path="/login" element={<Login/>}/>
         <Route path="/forgot-password" element={<ForgotPassword/>}/>
+        <Route path="/reset-password/:token" element={<ResetPassword/>}/>
         <Route path="/verify" element={<Verify/>}/>
       
       </Route>
@@ -47,7 +55,7 @@ export default function App() {
 
 
 
-
+</>
 
   )
 }

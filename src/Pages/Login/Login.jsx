@@ -6,32 +6,58 @@ import"./login.css";
 import loginImg from"../../assets/login.png";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa6";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { handleError } from '../../utilis/errorHandler';
+import { api } from '../../API/apis';
+import toast from 'react-hot-toast';
 
 export const Login = () => {
 //refs
 const emailRef = useRef(null);
 const passwordRef= useRef(null);
+
 //states
 const [showPass,setShowPass]=useState(false);
 
 //navigate
 const go = useNavigate();
-// check token 
-const token=localStorage.getItem("token");
-if(token){
-  return <Navigate t0="/feed" replace/>
-}
+// // check token 
+// const token=localStorage.getItem("token");
+// if(token){
+//   return <Navigate to="/feed" replace/>
+// }
 
 
-//Handlers
+//____________________________Handlers____________________________//
+
+
 async function handleSubmit(e){
   e.preventDefault();
 //data
-const email=emailRef.current.value;
-const password=passwordRef.current.value;
-
+const data = {
+  name:nameRef.current.value,
+  email:emailRef.current.value,
 }
+try {
+  
+//call endpoint =>/api/v1/auth/login
+const response= await api.post("/api/v1/auth/login",data)
+
+toast.success(response.data?.message);
+
+//Save token
+localStorage.setItem("token",response.data.token);
+
+//navigate
+go("/feed")
+
+} catch (error) {
+  handleError(error);
+}
+}
+
+
+//---------------------------------------------------------------------------//
 
   return (
    
@@ -55,14 +81,15 @@ const password=passwordRef.current.value;
               <p className='text-center text-muted mb-4'>
                 Login to continue
               </p>
-              <Form>
+              <Form onSubmit={handleSubmit}>
+
                 {/* email */}
                 <Form.Group className='mb-3'>
                   <Form.Control
                     type="email"
                     placeholder="Email"
                     ref={emailRef}
-                    required
+                    
                   />
                 </Form.Group>
 
@@ -73,10 +100,10 @@ const password=passwordRef.current.value;
                   <InputGroup>
                   
                   <Form.Control
-                    type={showPass ? "test":"password"}
+                    type={showPass ? "text":"password"}
                     placeholder="Password"
                     ref={passwordRef}
-                    required
+                    
                   />
                   <InputGroup.Text
                    onClick={()=>{setShowPass(!showPass)}}

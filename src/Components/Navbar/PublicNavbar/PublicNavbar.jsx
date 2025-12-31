@@ -27,11 +27,17 @@ function handleLogout(){
        connecta.
         </Navbar.Brand>
         {/* Mobile Toggle */}
-        <Navbar.Toggle area-controls="public-navbar"/>
+        <Navbar.Toggle aria-controls="public-navbar"/>
 
         <Navbar.Collapse id="public-navbar"  className='justify-content-end'>
           <Nav>
-           
+            {!token && (
+              <>
+                <Nav.Link as={Link} to="/login">
+                  Login
+                </Nav.Link>
+              </>
+            )}
 
             {token &&(
               <Button variant="outline-light"

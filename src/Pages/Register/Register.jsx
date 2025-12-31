@@ -1,20 +1,56 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { Button, Card, Container, Form } from 'react-bootstrap'
 import InputGroup from 'react-bootstrap/InputGroup';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa6";
 //CSS
 import"../../styles/auth.css";
+import { api } from '../../API/apis';
+import toast from 'react-hot-toast';
+import { handleError } from '../../utilis/errorHandler';
+import { useNavigate } from 'react-router-dom';
 
 
 export const Register = () => {
+  //navigation 
+  const navigate = useNavigate();
 //States
 const[showPass,setShowPass]=useState(false);
 //refs
+const emailRef=useRef(null);
+const nameRef=useRef(null);
+const passwordRef = useRef(null);
+//____________________handlers_____________________________//
 
-//handlers
 async function handleSubmit(e){
   e.preventDefault();
+//data
+const data ={
+  name:nameRef.current.value,
+  email:emailRef.current.value,
+  password:passwordRef.current.value,
+}
+
+//endpoint => api/v1/register => accept{name,email,password}
+  try {
+    //call API
+  const response =  await api.post("/api/v1/auth/register",data)
+    //save email in storage
+    localStorage.setItem("verifyEmail",data.email);
+
+
+    toast.success(response.data?.message);
+    //navigate to Verify otp page and delay it 
+
+    setTimeout(() => {
+  navigate("/verify");
+}, 800);
+    
+
+  } catch (error) {
+   handleError(error);
+
+  }
 
 }
 
@@ -41,7 +77,8 @@ async function handleSubmit(e){
       type="email"
       name="email"
       placeholder="Email"
-      required
+      ref={emailRef}
+      
       ></Form.Control>
     </Form.Group>
 
@@ -54,7 +91,8 @@ async function handleSubmit(e){
       type="text"
       name="name"
       placeholder="Your name"
-      required
+      ref={nameRef}
+      
       ></Form.Control>
     </Form.Group>
 
@@ -63,7 +101,8 @@ async function handleSubmit(e){
     <Form.Control
     type={showPass ? "text" :"password"}
     placeholder="password"
-    required
+    ref={passwordRef}
+    
     />
     <InputGroup.Text onClick={()=>{setShowPass(!showPass)}}
     style={{cursor:"pointer"}}

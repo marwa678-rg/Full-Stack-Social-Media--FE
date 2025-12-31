@@ -1,31 +1,33 @@
+/* Navbar states */
+.navbar-transparent {
+  background: transparent;
+  transition: all 0.3s ease;
+}
 
+.navbar-scrolled {
+  background: rgba(15, 15, 25, 0.95);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
 
+/* Brand */
+.brand-logo {
+  font-size: 1.6rem;
+  letter-spacing: 1px;
+}
+
+.brand-logo span {
+  color: #6c63ff;
+}
+
+/* Buttons */
 .auth-btn {
-  border-radius: 999px;
-  font-weight: 600;
+  border-radius: 20px;
   padding: 6px 18px;
-  transition: all 0.25s ease;
+  font-weight: 500;
 }
 
-.auth-btn:hover {
-  background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-1px);
-}
-
-/* default (desktop) */
-.nav-auth-btn {
-  margin-left: 8px;
-  margin-top:8px;
-}
-@media(max-width:991px){
-  .nav-auth-btn{
-    width:auto;
-    margin:12px 0px;
-    display:inline-block;
-
-  }
-  .navbar-collapse {
-    text-align: center;
-  }
-
+.nav-auth-btn:hover {
+  background: #6c63ff;
+  border-color: #6c63ff;
 }

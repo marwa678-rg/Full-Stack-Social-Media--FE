@@ -1,19 +1,33 @@
 import React, { useRef, useState } from 'react'
 import { Button, Card, Container, Form } from 'react-bootstrap'
+import { api } from '../../API/apis';
+import { handleError } from '../../utilis/errorHandler';
+import toast from 'react-hot-toast';
 
 export const ForgotPassword = () => {
 //Refs
 const emailRef=useRef(null);
 //states
 const[sent, setSent]=useState(false);
-
+const[loading,setLoading]=useState(false)
 //Handlers
 async function handleSubmit(e){
   e.preventDefault();
   //DATA
   const email=emailRef.current.value;
-  //call API
+  try {
+
+    setLoading(true)
+    //call API
+  const response = await api.post("/api/v1/auth/forgotPassword",{email})
   setSent(true);
+toast.success(response.data?.message);
+  } catch (error) {
+    handleError(error);
+  }finally{
+    setLoading(false)
+  }
+  
 }
 
 
@@ -40,11 +54,11 @@ async function handleSubmit(e){
                   type="email"
                   placeholder="Email"
                   ref={emailRef}
-                  required
+                 disabled={loading || sent}
                 ></Form.Control>
               </Form.Group>
-              <Button type="submit" className='w-100 auth-btn'>
-                Send Reset Link
+              <Button type="submit" className='w-100 auth-btn'disabled={loading ||sent}>
+               {loading ? "sending..." : "send Reset Link"}
               </Button>
 
             </Form>
