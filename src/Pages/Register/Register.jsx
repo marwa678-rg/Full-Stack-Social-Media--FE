@@ -9,6 +9,7 @@ import { api } from '../../API/apis';
 import toast from 'react-hot-toast';
 import { handleError } from '../../utilis/errorHandler';
 import { useNavigate } from 'react-router-dom';
+import { Loading } from '../../Components/Loading/Loading';
 
 
 export const Register = () => {
@@ -16,6 +17,7 @@ export const Register = () => {
   const navigate = useNavigate();
 //States
 const[showPass,setShowPass]=useState(false);
+const[loading,setLoading]= useState(false);
 //refs
 const emailRef=useRef(null);
 const nameRef=useRef(null);
@@ -24,6 +26,7 @@ const passwordRef = useRef(null);
 
 async function handleSubmit(e){
   e.preventDefault();
+  setLoading(true);
 //data
 const data ={
   name:nameRef.current.value,
@@ -50,11 +53,15 @@ const data ={
   } catch (error) {
    handleError(error);
 
+  }finally{
+    setLoading(false);
   }
 
 }
 
-
+if(loading){
+  return <Loading />
+}
 
   return (
 <section className='auth-page'>

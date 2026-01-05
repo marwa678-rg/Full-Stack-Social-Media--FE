@@ -1,17 +1,39 @@
+//Imports
 import React from 'react'
-import { Button, Container, Nav, Navbar } from 'react-bootstrap'
-
+import {  Container, Nav, Navbar } from 'react-bootstrap'
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearUser } from '../../../store/slices/userSlice';
 //cssImport
 import"./publicNavbar.css";
-import { Link, useNavigate } from 'react-router-dom';
+
+
+
+
+
+
+
 export const PublicNavbar = () => {
-// Gettoken to check
-const token = localStorage.getItem("token");
+
+
+const {isLoggedIn} = useSelector((state)=>state.user);
+const dispatch = useDispatch();
+
 //navigate
 const go = useNavigate();
-//handleLogout
+// handle page location
+const {pathname} = useLocation();
+
+
+
+
+
+//logout handler
 function handleLogout(){
+  //confirm before logout
+  if(! window.confirm("Are you sure want to logout ?")) return;
   localStorage.removeItem("token");
+  dispatch(clearUser())
   go("/login");
 }
 
@@ -20,35 +42,59 @@ function handleLogout(){
 
 
   return (
-    <Navbar expand="lg" fixed="top" bg="transparent" variant="dark" className="py-3">
+    <Navbar expand="lg" fixed="top" bg="transparent" variant="dark" className="public-navbar navbar-transparent">
       <Container >
         {/* Brand */}
-        <Navbar.Brand as={Link} to="/" className='fw-bold'>
+        <Navbar.Brand as={Link} to="/" className='fw-bold brand-logo'>
        connecta.
         </Navbar.Brand>
         {/* Mobile Toggle */}
         <Navbar.Toggle aria-controls="public-navbar"/>
 
         <Navbar.Collapse id="public-navbar"  className='justify-content-end'>
-          <Nav>
-            {!token && (
-              <>
-                <Nav.Link as={Link} to="/login">
-                  Login
+          <Nav className='align-items-center gap-2'>
+
+                      {/* user login  */}
+
+            {isLoggedIn && pathname !== "/feed" && (
+              
+                <Nav.Link as={Link} to="/feed" className='nav-link'>
+                  feed
                 </Nav.Link>
-              </>
+                )}
+
+              {isLoggedIn && pathname !== "/profile" &&(
+                 <Nav.Link as={Link} to="/profile" className='nav-link'>
+                  Profile
+                </Nav.Link>
+              )}
+              {isLoggedIn && (
+                <Nav.Link
+                as="button"
+                onClick={handleLogout}
+                className='nav-link'
+                >
+                      Logout
+                </Nav.Link>
+              
+
+              )}
+            
+          
+
+                          {/* not login  */}
+            {!isLoggedIn && pathname !== "/login"&& (
+              
+               <Nav.Link as={Link} to="/login">
+                Login
+              </Nav.Link>
+          
             )}
 
-            {token &&(
-              <Button variant="outline-light"
-               className='auth-btn nav-auth-btn'
-              size="sm"
-              onClick={handleLogout}
 
-              >
-                Logout
-              </Button>
-            )}
+
+
+
           </Nav>
         </Navbar.Collapse>
       </Container>

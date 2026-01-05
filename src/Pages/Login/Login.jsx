@@ -6,10 +6,12 @@ import"./login.css";
 import loginImg from"../../assets/login.png";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa6";
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { handleError } from '../../utilis/errorHandler';
 import { api } from '../../API/apis';
 import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../store/slices/userSlice';
 
 export const Login = () => {
 //refs
@@ -21,12 +23,8 @@ const [showPass,setShowPass]=useState(false);
 
 //navigate
 const go = useNavigate();
-// // check token 
-// const token=localStorage.getItem("token");
-// if(token){
-//   return <Navigate to="/feed" replace/>
-// }
-
+//Global 
+const dispatch = useDispatch();
 
 //____________________________Handlers____________________________//
 
@@ -35,7 +33,7 @@ async function handleSubmit(e){
   e.preventDefault();
 //data
 const data = {
-  name:nameRef.current.value,
+ password:passwordRef.current.value,
   email:emailRef.current.value,
 }
 try {
@@ -47,9 +45,10 @@ toast.success(response.data?.message);
 
 //Save token
 localStorage.setItem("token",response.data.token);
-
+//update user in Redux
+dispatch(setUser(response.data.user));
 //navigate
-go("/feed")
+go("/profile")
 
 } catch (error) {
   handleError(error);

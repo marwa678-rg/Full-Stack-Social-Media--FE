@@ -2,6 +2,7 @@
 import React from "react"
 import "./landing.css";
 import { useNavigate } from "react-router-dom";
+import { PublicNavbar } from "../../Components/Navbar/PublicNavbar/PublicNavbar";
 
 
 export function Landing() {
@@ -17,6 +18,8 @@ function handleGetStarted(){
 
 
   return (
+    <>
+  
     <section className="landing">
       <div className="landing-content">
         <h1>
@@ -38,5 +41,6 @@ function handleGetStarted(){
         </div>
       </div>
     </section>
+    </>
   );
 }

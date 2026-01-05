@@ -1,0 +1,40 @@
+.feed-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr 300px;
+  gap: 20px;
+  padding: 20px;
+  background: #f0f2f5;
+  min-height: 100vh;
+}
+
+/* Left */
+.feed-left {
+  position: sticky;
+  top: 80px;
+  height: fit-content;
+}
+
+/* Center */
+.feed-center {
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+/* Right */
+.feed-right {
+  position: sticky;
+  top: 80px;
+  height: fit-content;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .feed-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .feed-left,
+  .feed-right {
+    display: none;
+  }
+}
