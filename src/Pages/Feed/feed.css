@@ -1,35 +1,40 @@
-.feed-layout {
+
+.feed-page {
   display: grid;
-  grid-template-columns: 250px 1fr 300px;
-  gap: 20px;
-  padding: 20px;
-  background: #f0f2f5;
+  grid-template-columns: 260px 1fr 300px;
+  gap: 24px;
+  padding: 88px; 
+  background: #f5f6fa;
   min-height: 100vh;
 }
 
-/* Left */
+/* Left Sidebar */
 .feed-left {
   position: sticky;
-  top: 80px;
+  top: 88px;  /* nav 64 + 24 padding*/
   height: fit-content;
 }
 
-/* Center */
-.feed-center {
-  max-width: 680px;
-  margin: 0 auto;
+/* Main Feed */
+.feed-main {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width:680px;
+  width:100%;
+  margin:0 auto;
 }
 
-/* Right */
+/* Right Sidebar */
 .feed-right {
   position: sticky;
-  top: 80px;
+  top: 88px;
   height: fit-content;
 }
 
 /* Responsive */
 @media (max-width: 992px) {
-  .feed-layout {
+  .feed-page {
     grid-template-columns: 1fr;
   }
 

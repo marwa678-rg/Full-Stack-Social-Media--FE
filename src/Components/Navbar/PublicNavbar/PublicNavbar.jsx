@@ -42,7 +42,7 @@ function handleLogout(){
 
 
   return (
-    <Navbar expand="lg" fixed="top" bg="transparent" variant="dark" className="public-navbar navbar-transparent">
+    <Navbar expand="lg" fixed="top"  variant="dark" className="public-navbar">
       <Container >
         {/* Brand */}
         <Navbar.Brand as={Link} to="/" className='fw-bold brand-logo'>

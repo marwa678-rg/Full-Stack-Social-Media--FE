@@ -1,14 +1,20 @@
 /* Navbar states */
 
 .public-navbar {
+  position:fixed;
+  top:0px;
+  left:0px;
+  
+  width:100%;
   height: 64px;
   display:flex;
   align-items:center;
-  height:36px;
   margin:0;
   z-index:1000;
+  background: #6c63ff!important;
+    color: #fff !important;
 }
-
+/* 
 .navbar-transparent {
   background: transparent;
   transition: all 0.3s ease;
@@ -18,7 +24,7 @@
   background: rgba(15, 15, 25, 0.95);
   backdrop-filter: blur(8px);
   box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
+} */
 
 /* Brand */
 .brand-logo {
@@ -54,6 +60,7 @@
   .public-navbar .btn {
     width: 100%;
     text-align: center;
+     
   }
   .nav-link{
     color:#6c63ff!important;
@@ -64,7 +71,7 @@
   }
   .nav-link:hover{
   background: rgba(108, 99, 255, 0.15);
-  color: #fff !important;
+ 
   }
 }
 @media (max-width: 991px) {
