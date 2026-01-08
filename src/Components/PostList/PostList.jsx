@@ -26,7 +26,7 @@ dispatch(fetchPosts(response.data.posts))
 
 
 } catch (error) {
-  handleError();
+  handleError(error);
 }
 
 }

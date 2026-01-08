@@ -55,7 +55,7 @@ setImages([]);
 //Close modal
 onClose();
 } catch (error) {
-  handleError();
+  handleError(error);
 }finally{
   setLoading(false);
 }

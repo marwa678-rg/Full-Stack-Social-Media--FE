@@ -4,12 +4,42 @@ import { baseUrlHandler } from '../../utilis/baseUrlHandler'
 import moment from'moment';
 import { GrLike } from "react-icons/gr";
 import { FaRegComment } from "react-icons/fa";
+import { useDispatch, useSelector } from 'react-redux';
+import { handleError } from '../../utilis/errorHandler';
+import { api } from '../../API/apis';
+import { updatePost} from '../../store/slices/postSlice';
 //CSS
 import'./postCard.css';
+
 
 export const PostCard = ({post}) => {
 //baseUrl
 const baseUrl = baseUrlHandler();
+//UserRedux
+const{user}= useSelector((state)=>state.user)
+//isLike check
+const isLike = post.likes.includes(user._id);
+const dispatch = useDispatch();
+//___________________________Handlers_______________________________//
+//------Handle Like
+async function handleLike(){
+try {
+
+  //call EndPoint => /api/v1/posts/:id/like
+  const response = await api.put(`/api/v1/posts/${post._id}/like`,{},{
+    headers:{
+      Authorization:`Bearer ${localStorage.getItem("token")}`
+    }
+  });
+  console.log(response.data);
+
+  //Redux
+ dispatch(updatePost(response.data.post))
+  
+} catch (error) {
+  handleError(error);
+}
+}
 
 
   return (
@@ -73,7 +103,7 @@ const baseUrl = baseUrlHandler();
     </Card.Body>
 
     <Card.Footer className='bg-white d-flex justify-content-between'>
-              <Button variant='light'>  
+              <Button variant={isLike? "danger" :"light"} onClick={handleLike}>  
                 <GrLike />{post.likes.length}
               </Button>
               <Button variant='light'>

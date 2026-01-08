@@ -21,12 +21,17 @@ const postsSlice = createSlice({
     fetchError:(state,action)=>{
       state.loading=false;
       state.error=action.payload;
-    }
+    },
+    updatePost:(state,action)=>{
+      const updatePost = action.payload;
+      state.posts = state.posts.map((post)=> post._id === updatePost._id ? updatePost : post)
+     
+    },
   },
 });
 
 
 
-export const{fetchPosts,addPost,fetchError,startFetch}= postsSlice.actions;
+export const{fetchPosts,addPost,fetchError,startFetch,updatePost}= postsSlice.actions;
 
 export default postsSlice.reducer;
