@@ -8,6 +8,7 @@ import{SidebarLeft}from'../../Components/SidebarLeft/SidebarLeft';
 import{SidebarRight}from'../../Components/SidebarRight/SidebarRight';
 import { CreatePostModal } from '../../Components/CreatePostModal/CreatePostModal';
 import { CreatePostBox } from '../../Components/CreatePostBox/CreatePostBox';
+import { PostList } from '../../Components/PostList/PostList';
 
 export const Feed = () => {
 
@@ -35,6 +36,10 @@ const[showCreatePost,setShowCreatePost]=useState(false);
     <CreatePostModal show={showCreatePost}
                       onClose={()=>setShowCreatePost(false)}
     />
+
+
+<PostList />
+
 </main>
 
   <div className='feed-right'>

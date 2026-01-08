@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
 //Internal Imports
 import{handleError}from'../../utilis/errorHandler';
 import{api}from'../../API/apis';
 import { Button, Modal ,Form} from 'react-bootstrap';
+import { addPost } from '../../store/slices/postSlice';
 
 
 
@@ -13,6 +14,8 @@ import { Button, Modal ,Form} from 'react-bootstrap';
 export const CreatePostModal = ({show,onClose}) => {
 //Get user Redux
 const {user}= useSelector((state)=>state.user);
+//POSt Redux
+const dispatch = useDispatch();
  //Modal states
  const[content,setContent]=useState("");
  const[images,setImages]=useState([]);
@@ -40,9 +43,11 @@ try {
       Authorization:`Bearer ${localStorage.getItem("token")}`
     },
   });
+  console.log(response.data)
   toast.success(response.data.message)
-//toast sucess
-//toast.success(response.data.message)
+//save post in Post Redux
+dispatch(addPost(response.data.post))
+
 //clear 
 
 setContent("");
@@ -84,7 +89,7 @@ onClose();
             <Form.Control 
               type='file'
               multiple
-              onChange={(e)=>setImages(Array.from(e.target.files))}
+              onChange={(e)=>setImages((prev)=>[...prev,...Array.from(e.target.files)])}
             />
           </Form.Group>
 
