@@ -11,9 +11,9 @@ import { useEffect } from 'react';
 
 
 
-export const PostList = () => {
+export const PostList = ({search}) => {
 // redux
-const {posts,loading}=useSelector((state)=>state.posts)
+const {posts,loading,error}=useSelector((state)=>state.posts)
 //Global 
 const dispatch = useDispatch();
 
@@ -24,7 +24,7 @@ try {
   //starting
   dispatch(startFetch());
 //Call Endpoint => /api/v1/posts
-const response = await api.get("/api/v1/posts");
+const response = await api.get("/api/v1/posts",{params:{search}});
 console.log(response.data.posts);
 dispatch(fetchPosts(response.data.posts))
 
@@ -41,9 +41,10 @@ getPosts();
 
 
 
-},[dispatch])
+},[dispatch,search])
 
 if(loading)return <Loading />
+if(error)return<p className='text-danger text-center mt-3'>{error}</p>
 if(!posts.length)return <p className='text-center'>No posts yet</p>
 
   return (

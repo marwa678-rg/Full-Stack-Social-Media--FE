@@ -9,12 +9,17 @@ import{SidebarRight}from'../../Components/SidebarRight/SidebarRight';
 import { CreatePostModal } from '../../Components/CreatePostModal/CreatePostModal';
 import { CreatePostBox } from '../../Components/CreatePostBox/CreatePostBox';
 import { PostList } from '../../Components/PostList/PostList';
+import { Button, Form, InputGroup } from 'react-bootstrap';
+import { FcSearch } from "react-icons/fc";
+
+
 
 export const Feed = () => {
 
 //Modal state
 const[showCreatePost,setShowCreatePost]=useState(false);
-
+//Search State
+const [search,setSearch]=useState("");
 
 
 
@@ -37,8 +42,28 @@ const[showCreatePost,setShowCreatePost]=useState(false);
                       onClose={()=>setShowCreatePost(false)}
     />
 
+{/* SEARCH  */}
+      <InputGroup className="mb-3">
+        
+        <Form.Control
+         placeholder='Search posts...'
+         className='text-muted'
+         value={search}
+         onChange={(e)=>setSearch(e.target.value)}
+        />
+      <InputGroup.Text variant="outline-secondary">
+          <FcSearch  className='text-align-center '/>
+        </InputGroup.Text>
 
-<PostList />
+
+      </InputGroup>
+
+      
+
+
+
+
+<PostList search={search}/>
 
 </main>
 
