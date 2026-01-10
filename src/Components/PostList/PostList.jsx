@@ -7,6 +7,10 @@ import { handleError } from '../../utilis/errorHandler';
 import { fetchPosts, startFetch } from '../../store/slices/postSlice';
 import { api } from '../../API/apis';
 import { useEffect } from 'react';
+
+
+
+
 export const PostList = () => {
 // redux
 const {posts,loading}=useSelector((state)=>state.posts)
@@ -45,7 +49,7 @@ if(!posts.length)return <p className='text-center'>No posts yet</p>
   return (
     <>
     {posts.map((post)=>(
-      <PostCard key={post._id}  post={post}/>
+      <PostCard key={post._id}  postId={post._id}/>
     ))}
     
     

@@ -33,6 +33,7 @@ console.log("USER FROM REDUX:", user);
       {/* Avatatr from DB*/}
           <img  
              src={`${baseUrl}${user.avatar}`}
+
               alt="profile"
               style={{
                 width:140,

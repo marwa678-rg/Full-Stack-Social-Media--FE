@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Card, Carousel } from 'react-bootstrap'
 import { baseUrlHandler } from '../../utilis/baseUrlHandler'
 import moment from'moment';
@@ -8,11 +8,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { handleError } from '../../utilis/errorHandler';
 import { api } from '../../API/apis';
 import { updatePost} from '../../store/slices/postSlice';
+import { FaShare } from "react-icons/fa";
+import { CommentsSection } from '../CommentsSection/CommentsSection';
 //CSS
 import'./postCard.css';
 
 
-export const PostCard = ({post}) => {
+
+export const PostCard = ({postId}) => {
+//post rom Redux
+const post = useSelector((state)=>state.posts.posts?.find((p)=> p._id === postId));
+
+
 //baseUrl
 const baseUrl = baseUrlHandler();
 //UserRedux
@@ -20,18 +27,17 @@ const{user}= useSelector((state)=>state.user)
 //isLike check
 const isLike = post.likes.includes(user._id);
 const dispatch = useDispatch();
+//state Comment
+const[showComments,setShowComments] = useState(false);
+if(!post) return null;
 //___________________________Handlers_______________________________//
 //------Handle Like
 async function handleLike(){
 try {
 
   //call EndPoint => /api/v1/posts/:id/like
-  const response = await api.put(`/api/v1/posts/${post._id}/like`,{},{
-    headers:{
-      Authorization:`Bearer ${localStorage.getItem("token")}`
-    }
-  });
-  console.log(response.data);
+  const response = await api.put(`/api/v1/posts/${postId}/like`)
+   console.log(response.data);
 
   //Redux
  dispatch(updatePost(response.data.post))
@@ -40,6 +46,11 @@ try {
   handleError(error);
 }
 }
+
+
+
+
+
 
 
   return (
@@ -103,14 +114,38 @@ try {
     </Card.Body>
 
     <Card.Footer className='bg-white d-flex justify-content-between'>
+                    {/* likes */}
+
               <Button variant={isLike? "danger" :"light"} onClick={handleLike}>  
                 <GrLike />{post.likes.length}
               </Button>
-              <Button variant='light'>
-                <FaRegComment />{post.commentsCount}
+
+
+              {/* commments */}
+
+              <Button variant='link'
+                className='comment-btn'
+                //Toggle
+                onClick={()=>setShowComments((prev)=> !prev)}
+              >
+                <FaRegComment />
+              <span>{post.commentsCount}</span>
               </Button>
+
+                {/* share */}
+
+              <Button variant='light'>
+              <FaShare />
+              <span>share</span>
+              </Button>
+
     </Card.Footer>
 
+{showComments && (
+  <div className="px-3 pb-2">
+    <CommentsSection postId={postId} />
+  </div>
+)}
 
 
 

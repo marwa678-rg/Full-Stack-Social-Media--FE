@@ -27,11 +27,20 @@ const postsSlice = createSlice({
       state.posts = state.posts.map((post)=> post._id === updatePost._id ? updatePost : post)
      
     },
+  incrementCommentsCount:(state,action)=>{
+      
+    state.posts  = state.posts.map((post)=>
+    post._id === action.payload ? {...post,commentsCount:post.commentsCount + 1}:post)
+    },
+
+
+
+
   },
 });
 
 
 
-export const{fetchPosts,addPost,fetchError,startFetch,updatePost}= postsSlice.actions;
+export const{fetchPosts,addPost,fetchError,startFetch,updatePost,incrementCommentsCount}= postsSlice.actions;
 
 export default postsSlice.reducer;
