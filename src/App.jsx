@@ -17,6 +17,7 @@ import { api } from './API/apis';
 import { setUser } from './store/slices/userSlice';
 import { handleError } from './utilis/errorHandler';
 import { PublicNavbar } from './Components/Navbar/PublicNavbar/PublicNavbar';
+import { OtherUserProfile } from './Pages/OtherUserProfile/OtherUserProfile';
 
 export default function App() {
   const { isLoggedIn,user } = useSelector(state => state.user);
@@ -50,6 +51,7 @@ export default function App() {
         <PublicNavbar />
       <Routes>
         {/* Public */}
+
         <Route path="/" element={<Landing />} />
 
         <Route
@@ -67,10 +69,16 @@ export default function App() {
         <Route path="/verify" element={<Verify />} />
 
         {/* Protected */}
+
+
+              {/* My profile */}
         <Route
           path="/profile"
           element={isLoggedIn ? <UserProfile /> : <Navigate to="/login" />}
         />
+        
+          {/* other users profile */}
+          <Route  path="/users/:userId"  element={isLoggedIn ? <OtherUserProfile /> : <Navigate to="/login"/>} />
 
         <Route
           path="/feed"

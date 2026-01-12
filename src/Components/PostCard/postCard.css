@@ -14,6 +14,32 @@
   object-fit: cover;
 }
 
+.post-header {
+  gap: 8px;
+}
+
+.post-owner-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.post-icon {
+  cursor: pointer;
+  font-size: 18px;
+  color: #65676b;
+}
+
+.post-icon:hover {
+  color: #000;
+}
+
+.post-icon.delete:hover {
+  color: #e74c3c;
+}
+
+
+
+
 .post-single-image{
   width:100%;
   max-height:420px;
@@ -62,3 +88,4 @@
   color: #0d6efd;
   background: transparent;
 }
+

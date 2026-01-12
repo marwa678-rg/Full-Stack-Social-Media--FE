@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Loading } from '../../Components/Loading/Loading';
 import{baseUrlHandler}from"../../utilis/baseUrlHandler";
 import { Button } from 'react-bootstrap';
-import{PublicNavbar}from'../../Components/Navbar/PublicNavbar/PublicNavbar';
+
 //CSS Imports
 import"./userProfile.css";
 //Modal imports
@@ -12,13 +12,19 @@ import { useState } from 'react';
 
 
 export const UserProfile = () => {
-
+  //baseUrl
+const baseUrl = baseUrlHandler();
 
 //Get user from Redux  
-const { user } = useSelector(state => state.user);
-const baseUrl = baseUrlHandler();
+
+const { user} = useSelector(state => state.user);
+
 //Modal states
 const[showEdit,setShowEdit]=useState(false);
+//state for  otheruser-profile
+
+
+
   if (!user) {
     return <Loading />
   }

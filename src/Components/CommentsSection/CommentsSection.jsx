@@ -10,7 +10,8 @@ import { baseUrlHandler } from '../../utilis/baseUrlHandler';
 import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import { EditCommentModal } from '../EditCommentModal/EditCommentModal';
-
+//Css
+import"./commentsSection.css";
 
 
 
@@ -110,9 +111,14 @@ return (
         const isDefaultAvatar = ! avatar || avatar.includes("default-avatar");
 
         return(
-          <div key={comment._id} className=' d-flex justify-content-between align-items-start mb-2'>
+          <div key={comment._id} className='comment-row'>
+
+
+            <div className='comment-left'>
             {isDefaultAvatar? (
-              <strong>{comment.userId?.name}</strong>
+              <div className='comment-avatar default-avatar'>
+                {comment.userId?.name}
+              </div>
             ): (
               <img 
                 src={avatar}
@@ -124,14 +130,22 @@ return (
               />
             )}
 
+          <div className='comment-buble'>
+            <strong className='comment-username'>
+              {comment.userId?.name}
+            </strong>
+              <p className='comment-text'>{comment.text}</p>
+          </div>
 
-            <p className='mb-1'>{comment.text}</p>
+
+        </div>
+            
 
 
             {/* Edit & Delete icons => per comment */}
 
             {comment.userId?._id === user._id &&   (
-              <div className='d-flex gap-2'>
+              <div className='comment-actions'>
                 <CiEdit 
                   style={{cursor:"pointer",
                    color:"#0d6efd"}}
