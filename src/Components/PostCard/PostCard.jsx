@@ -26,13 +26,14 @@ export const PostCard = ({postId}) => {
 //post rom Redux
 const post = useSelector((state)=>state.posts.posts?.find((p)=> p._id === postId));
 
-
+if(!post)return null;
 //baseUrl
 const baseUrl = baseUrlHandler();
 //UserRedux
 const{user}= useSelector((state)=>state.user)
+
 //isLike check
-const isLike = post.likes.includes(user._id);
+const isLike = post.likes?.includes(user._id);
 const dispatch = useDispatch();
 //state Comment
 const[showComments,setShowComments] = useState(false);
@@ -104,12 +105,12 @@ setShowEditModal(false);
     <Card className='post-card mb-3'>
       <Card.Header className=' post-header d-flex align-items-center gap-2 bg-white'>
         {/* check my profile and others */}
-        <Link to={post.userId._id === user._id ? 
+        <Link to={post.userId?._id === user?._id ? 
           "/profile":
-          `/users/${post.userId._id}`
+          `/users/${post.userId?._id}`
         }>
         <img   
-          src={`${baseUrl}${post.userId.avatar}`}
+          src={`${baseUrl}${post.userId?.avatar}`}
           alt="avatar"
           className='post-avatar'
         />
@@ -129,7 +130,7 @@ setShowEditModal(false);
         </div>
 
       {/* owner actions */}
-      {post.userId._id === user._id && (
+      {post.userId?._id === user?._id && (
         <div className='ms-auto post-owner-actions'>
             <CiEdit 
               className='post-icon'

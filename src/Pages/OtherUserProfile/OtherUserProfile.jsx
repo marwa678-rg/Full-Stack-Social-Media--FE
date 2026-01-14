@@ -17,6 +17,7 @@ const {userId} =useParams();
 const[user,setUser]=useState(null);
 //Follow/Unfollow state
 const[isFollowing ,setIsFollowing]= useState(false);
+const [followersCount, setFollowersCount] = useState(0);
 
 //useEffect
 useEffect(()=>{
@@ -59,10 +60,38 @@ if(!user){
       <p className="profile-bio">{user.bio || "No bio yet"}</p>
 
       {/* Action */}
+
+{/* Stats */}
+<div className="profile-stats">
+  <div>
+    <strong>0</strong>
+    <span>Posts</span>
+  </div>
+
+  <div>
+    <strong>{followersCount}</strong>
+    <span>Followers</span>
+  </div>
+
+  <div>
+    <strong>0</strong>
+    <span>Following</span>
+  </div>
+</div>
+
+
+
+
+
+
       <Button
         variant={isFollowing ? "outline-primary" : "primary"}
         size="sm"
-        onClick={() => setIsFollowing(prev => !prev)}
+        onClick={() =>{ setIsFollowing(prev => !prev)
+
+           setFollowersCount(prev =>isFollowing ? prev - 1 : prev + 1);
+        }
+      }
       >
         {isFollowing ? "Following" : "Follow"}
       </Button>
