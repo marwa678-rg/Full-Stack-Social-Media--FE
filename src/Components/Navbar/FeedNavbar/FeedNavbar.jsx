@@ -11,6 +11,7 @@ import { clearUser } from '../../../store/slices/userSlice';
 import { baseUrlHandler } from '../../../utilis/baseUrlHandler';
 import { NotificationDropdown } from '../../Notification/NotificationDropdown';
 import {api}from"../../../API/apis";
+import toast from 'react-hot-toast';
 //Internal Imports
 
 
@@ -26,8 +27,16 @@ const baseUrl = baseUrlHandler();
 const[notifications,setNotifications]=useState([]);
 const[unreadCount,setUnreadCount]=useState(0);
 
-//Handler
+//search users state
+const[search,setSearch] = useState("");
+const[users,setUsers]= useState([]);
 
+
+
+//__________________________________Handlers________________________________//
+
+
+//handle logout
 function handleLogout (){
   if(!window.confirm("Are you sure you want to logout?"))return;
   localStorage.removeItem("token");
@@ -55,7 +64,27 @@ useEffect(()=>{
   getNotifications();
 },[])
 
+//handle users search
+async function handleSearch(value){
 
+  //handle input in UI 
+    setSearch(value);
+    if(!value.trim()){  //value -> empty -> clear search
+      setUsers([]);
+      return;
+    }
+
+
+  try {
+  //call get serach users
+    const response = await api.get(`/api/v1/users/search?search=${value}&pageSize=5`)
+    
+    console.log(response.data.users)
+      setUsers(response.data.users)
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 
 
@@ -70,12 +99,17 @@ useEffect(()=>{
 <Navbar.Toggle aria-controls="feed-navbar" />
 
 <Navbar.Collapse id="feed-navbar">
+
+
+
       {/* search  -desktop*/}
     <InputGroup className='mx-lg-auto d-none d-lg-flex'
     style={{width:"40%"}}>
       <Form.Control
         placeholder="search people ..."
         type="search"
+        value={search}
+        onChange={(e)=>handleSearch(e.target.value)}
         
       />
       <InputGroup.Text>
@@ -83,6 +117,40 @@ useEffect(()=>{
       </InputGroup.Text>
     
   </InputGroup>
+
+{/* Dropdown of users */}
+{users.length > 0 && (
+  <div className='position-absolute bg-white shadow rounded w-100 mt-1'>
+    {users.map((u)=>(
+      <div key={u._id}
+            className='d-flex align-items-center gap-2 p-2 search-item'
+            style={{cursor:"pointer"}}
+            onClick={()=>{
+              navigate(`/users/${u._id}`);
+              setSearch("")
+              setUsers([]);
+            }}
+
+      >
+          <img 
+            src={`${baseUrl}${u.avatar}`}
+            alt="avatar"
+            width={30}
+            height={30}
+            className='rounded-circle'
+          />
+
+          <span>{u.name}</span>
+
+
+
+      </div>
+    ))}
+  </div>
+)}
+
+
+
 
   {/* Right actions */}
   <Nav className="align-items-center gap-4 ms-auto">
