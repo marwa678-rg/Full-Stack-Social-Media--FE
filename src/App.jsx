@@ -1,6 +1,6 @@
 // Imports
 import React, { useEffect } from 'react';
-import { Route, Routes, Navigate } from 'react-router-dom';
+import { Route, Routes, Navigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
 
@@ -18,10 +18,14 @@ import { setUser } from './store/slices/userSlice';
 import { handleError } from './utilis/errorHandler';
 import { PublicNavbar } from './Components/Navbar/PublicNavbar/PublicNavbar';
 import { OtherUserProfile } from './Pages/OtherUserProfile/OtherUserProfile';
+import { FeedNavbar } from './Components/Navbar/FeedNavbar/FeedNavbar';
 
 export default function App() {
   const { isLoggedIn,user } = useSelector(state => state.user);
   const dispatch = useDispatch();
+//location of route
+const location = useLocation();
+const landingPage = location.pathname === "/";
 
   const token = localStorage.getItem("token");
 
@@ -48,7 +52,12 @@ export default function App() {
   return (
     <>
       <Toaster position="top-left" />
-        <PublicNavbar />
+
+        {/*Navbars  */}
+    {landingPage && <PublicNavbar/>}
+    {!landingPage && isLoggedIn && <FeedNavbar/>}
+    {!landingPage && !isLoggedIn && <PublicNavbar/>}
+
       <Routes>
         {/* Public */}
 
