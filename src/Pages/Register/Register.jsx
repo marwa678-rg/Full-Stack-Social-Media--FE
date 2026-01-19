@@ -4,7 +4,7 @@ import InputGroup from 'react-bootstrap/InputGroup';
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa6";
 //CSS
-import"../../styles/auth.css";
+import"./register.css";
 import { api } from '../../API/apis';
 import toast from 'react-hot-toast';
 import { handleError } from '../../utilis/errorHandler';
@@ -64,9 +64,12 @@ if(loading){
 }
 
   return (
-<section className='auth-page'>
+<section className='register-page'>
     <Container>
-    <div className='auth-wrapper'>
+<div className='auth-layout'>
+
+{/* Left :Form */}
+    <div className='auth-form'>
     <Card className='auth-card'>
       <Card.Body>
         <h3 className='text-center fw-bold mb-2'>
@@ -104,7 +107,7 @@ if(loading){
     </Form.Group>
 
 
-<InputGroup>
+<InputGroup className='password-group mb-2'>
     <Form.Control
     type={showPass ? "text" :"password"}
     placeholder="password"
@@ -112,7 +115,7 @@ if(loading){
     
     />
     <InputGroup.Text onClick={()=>{setShowPass(!showPass)}}
-    style={{cursor:"pointer"}}
+    className='password-toggle'
     >
     {showPass ? <FaEye /> : <FaEyeSlash />}    
     </InputGroup.Text>
@@ -126,13 +129,23 @@ if(loading){
 
 </Form>
 
-
-
-
 </Card>
 
 
-    </div>
+
+  </div>
+{/* Right: Image */}
+<div className='auth-image'>
+   <img
+          src="/images/undraw_email-consent_j36b.png"
+          alt="Register"
+        />
+</div>
+
+
+
+
+</div>
 
 
 

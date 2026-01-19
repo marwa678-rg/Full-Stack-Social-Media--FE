@@ -17,7 +17,7 @@ export const Login = () => {
 //refs
 const emailRef = useRef(null);
 const passwordRef= useRef(null);
-
+const [loading,setLoading]= useState(false);
 //states
 const [showPass,setShowPass]=useState(false);
 
@@ -31,6 +31,9 @@ const dispatch = useDispatch();
 
 async function handleSubmit(e){
   e.preventDefault();
+if(loading)return 
+
+setLoading(true);
 //data
 const data = {
  password:passwordRef.current.value,
@@ -52,6 +55,8 @@ go("/profile")
 
 } catch (error) {
   handleError(error);
+}finally{
+  setLoading(false);
 }
 }
 
@@ -60,7 +65,7 @@ go("/profile")
 
   return (
    
-    <section className='auth-page login-page'>
+    <section className=' auth-page login-page'>
       <div className='login-layout'>
 {/*_____________ image Side________________________ */}
       <div className='login-image'>
@@ -118,8 +123,8 @@ go("/profile")
               </Form.Group>   
 
               {/* button of submit */}
-              <Button type="submit" className='w-100 auth-btn'>
-                Login
+              <Button type="submit" className='w-100 auth-btn' disabled={loading}>
+               {loading ? "Logging in ..." :"Login"}
               </Button>
 
               </Form>

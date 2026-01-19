@@ -4,8 +4,8 @@ export const SidebarRight = () => {
 const chats =[
   {id:1,name:"Ahmed", message:"hey👋",online:"true"},
 {id:2,name:"mai", message:"how are you?",online:"true"},
-{id:1,name:"sara", message:"lets work !",online:"false"},
-{id:1,name:"Omar", message:"hey👋",online:"false"},
+{id:3,name:"sara", message:"lets work !",online:"false"},
+{id:4,name:"Omar", message:"hey👋",online:"false"},
 
 ]
 

@@ -1,0 +1,129 @@
+/* ===== Register Page ===== */
+.register-page {
+  min-height: 100vh;
+  background: #f9fafb;
+  display: flex;
+  align-items: center;
+  padding-top:100px;
+}
+
+/* ===== Layout ===== */
+.auth-layout {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  min-height: 80vh;
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.08);
+}
+
+/* ===== Left: Form ===== */
+.auth-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 48px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 460px;
+  padding: 36px 32px 40px;
+  border-radius: 18px;  
+  border: none;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.12);
+}
+
+.auth-card h3 {
+  font-size: 16px;
+}
+
+.auth-card p {
+  font-size: 28px;
+  max-width:320px;
+  margin-inline:auto;
+}
+
+/* Inputs */
+.auth-card .form-control {
+  height: 52px;
+  border-radius: 12px;
+  font-size: 15px;
+  margin-bottom: 16px;
+
+}
+
+.auth-card .form-control:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.15);
+}
+
+/* Password icon */
+.input-group-text {
+  background: transparent;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 0 12px 12px 0;
+}
+.password-group {
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+.password-group .form-control {
+  border: none;
+ 
+}
+
+.password-group .input-group-text {
+  border: none;
+  padding: 0 16px;
+  cursor: pointer;
+}
+
+
+/* Button */
+.auth-btn {
+  margin-top: 24px;     
+  height: 54px;
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #6d28d9, #7c3aed);
+  border: none;
+}
+
+.auth-btn:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+/* ===== Right: Image ===== */
+.auth-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #6d28d9, #7c3aed);
+}
+
+.auth-image img {
+  width: 80%;
+  max-width: 420px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 992px) {
+  .auth-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-image {
+    display: none;
+  }
+
+  .auth-form {
+    padding: 48px 24px;
+  }
+}

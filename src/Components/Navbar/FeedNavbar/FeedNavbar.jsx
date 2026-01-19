@@ -11,7 +11,7 @@ import { clearUser } from '../../../store/slices/userSlice';
 import { baseUrlHandler } from '../../../utilis/baseUrlHandler';
 import { NotificationDropdown } from '../../Notification/NotificationDropdown';
 import {api}from"../../../API/apis";
-import toast from 'react-hot-toast';
+import"./feedNavbar.css";
 //Internal Imports
 
 
@@ -30,7 +30,8 @@ const[unreadCount,setUnreadCount]=useState(0);
 //search users state
 const[search,setSearch] = useState("");
 const[users,setUsers]= useState([]);
-
+//loading state
+const[loading,setLoading]=useState(false);
 
 
 //__________________________________Handlers________________________________//
@@ -76,6 +77,7 @@ async function handleSearch(value){
 
 
   try {
+    setLoading(true);
   //call get serach users
     const response = await api.get(`/api/v1/users/search?search=${value}&pageSize=5`)
     
@@ -83,6 +85,8 @@ async function handleSearch(value){
       setUsers(response.data.users)
   } catch (error) {
     console.log(error)
+  }finally{
+    setLoading(false);
   }
 }
 
@@ -103,8 +107,9 @@ async function handleSearch(value){
 
 
       {/* search  -desktop*/}
-    <InputGroup className='mx-lg-auto d-none d-lg-flex'
-    style={{width:"40%"}}>
+  <div className="nav-search-wrapper mx-lg-auto d-none d-lg-block">    
+    <InputGroup className='nav-search'
+    >
       <Form.Control
         placeholder="search people ..."
         type="search"
@@ -113,17 +118,35 @@ async function handleSearch(value){
         
       />
       <InputGroup.Text>
-            <RiContactsFill className='me-2 text-muted'/>
+            <RiContactsFill className=' text-muted'/>
       </InputGroup.Text>
     
   </InputGroup>
 
 {/* Dropdown of users */}
-{users.length > 0 && (
-  <div className='position-absolute bg-white shadow rounded w-100 mt-1'>
-    {users.map((u)=>(
+{search && (
+  <div className='search-results'>
+
+    {loading &&(
+      <div className='search-item search-state'>
+        Searching...
+      </div>
+    )}
+
+
+    {!loading && users.length === 0 && (
+      <div className='search-item  search-state'>
+        No users found
+      </div>
+    )}
+
+
+
+
+
+    {!loading && users.map((u)=>(
       <div key={u._id}
-            className='d-flex align-items-center gap-2 p-2 search-item'
+            className='search-item'
             style={{cursor:"pointer"}}
             onClick={()=>{
               navigate(`/users/${u._id}`);
@@ -148,7 +171,7 @@ async function handleSearch(value){
     ))}
   </div>
 )}
-
+</div>
 
 
 

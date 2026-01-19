@@ -53,6 +53,28 @@ function handleLogout(){
 
         <Navbar.Collapse id="public-navbar"  className='justify-content-end'>
           <Nav className='align-items-center gap-2'>
+          {/*landing links  */}
+{!isLoggedIn && pathname === "/" && (
+  <>
+    <Nav.Link href="#features" className="nav-link">
+      Features
+    </Nav.Link>
+
+    <Nav.Link href="#community" className="nav-link">
+      Community
+    </Nav.Link>
+
+      <button
+    className="nav-cta"
+    onClick={() => go("/register")}
+  >
+    Join Connecta
+  </button>
+  </>
+)}
+
+
+
 
                       {/* user login  */}
 
