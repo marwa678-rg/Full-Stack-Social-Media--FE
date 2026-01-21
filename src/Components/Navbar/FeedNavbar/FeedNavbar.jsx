@@ -5,7 +5,7 @@ import { Badge, Container, Dropdown, Form, InputGroup, Nav, Navbar } from 'react
 import { FaBell } from "react-icons/fa";
 import { RiContactsFill } from "react-icons/ri";
 import { Link, useNavigate } from 'react-router-dom';
-import { FaMoon } from "react-icons/fa";
+import { FaCog } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { clearUser } from '../../../store/slices/userSlice';
 import { baseUrlHandler } from '../../../utilis/baseUrlHandler';
@@ -93,7 +93,7 @@ async function handleSearch(value){
 
 
   return (
-    <Navbar bg="light" expand="lg" fixed="top" className='border-bottom'>
+    <Navbar bg="light" expand="lg" fixed="top" className='feed-navbar border-bottom'>
       <Container>
         {/* Logo */}
         <Navbar.Brand as={Link} to="/feed" className='fw-bold'>
@@ -181,7 +181,7 @@ async function handleSearch(value){
   <Dropdown align="end">
     <Dropdown.Toggle as="div" className='position-relative d-flex align-items-center justify-content-center 'style={{width:36,height:36,marginTop:5,cursor:"pointer"}}>
 
-      <FaBell  size={18}/>
+      <FaBell  size={18} className='notification-bell'/>
       <Badge bg="danger"className='position-absolute top-0 start-100 translate-middle'>
        {unreadCount}
       </Badge>
@@ -211,7 +211,7 @@ async function handleSearch(value){
           </Dropdown.Item>
 
         <Dropdown.Item as={Link} to="/profile">
-           <FaMoon className='me-2'/> Dark Mode
+           <FaCog className='me-2'/> Settings
           </Dropdown.Item>
         <Dropdown.Divider />
         <Dropdown.Item onClick={handleLogout}>

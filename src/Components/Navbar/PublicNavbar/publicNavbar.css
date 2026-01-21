@@ -1,7 +1,7 @@
 /* Navbar states */
 
 .public-navbar {
-   position: fixed;
+   position:fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -9,10 +9,18 @@
   display: flex;
   align-items: center;
   z-index: 1000;
-  background: linear-gradient(135deg, #6d28d9, #7c3aed);
+  background:var(--nav-bg)!important;
+  color:var(--nav-text)!important;
 backdrop-filter: none;
 border-bottom: none;
  
+}
+.public-navbar .container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 
@@ -25,6 +33,12 @@ border-bottom: none;
 .brand-logo span {
   color: #6c63ff;
 }
+.public-navbar .nav-link {
+  color: var(--nav-text) !important;
+  opacity: 1 !important;
+  font-weight: 500;
+}
+
 
 .nav-auth-btn:hover {
   background: #6c63ff;

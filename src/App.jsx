@@ -19,8 +19,10 @@ import { handleError } from './utilis/errorHandler';
 import { PublicNavbar } from './Components/Navbar/PublicNavbar/PublicNavbar';
 import { OtherUserProfile } from './Pages/OtherUserProfile/OtherUserProfile';
 import { FeedNavbar } from './Components/Navbar/FeedNavbar/FeedNavbar';
+import { useTheme } from './context/ThemeContext';
 
 export default function App() {
+ 
   const { isLoggedIn,user } = useSelector(state => state.user);
   const dispatch = useDispatch();
 //location of route

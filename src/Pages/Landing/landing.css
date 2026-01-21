@@ -4,11 +4,11 @@
   display: flex;
   align-items:flex-start;
   justify-content: center;
-  background-color: #ffffff;
+  background-color: var(--bg-color);
   padding-top:64px;
   padding-bottom:48px;
   text-align: center;
-  color: #0f172a;
+  color: var(--text-color);
 }
 
 /* Wrapper */
@@ -18,7 +18,30 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position:relative;
 }
+.landing-theme-toggle{
+  position:absolute;
+  top:24px;
+  right:24px;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  border:1px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  box-shadow:0 4px 12px rgba(0,0,0,0.08); 
+}
+.landing-theme-toggle:hover {
+  transform: scale(1.05);
+  background: var(--bg-color); 
+}
+
 
 /* ===== Text ===== */
 .landing-content h1 {
@@ -31,7 +54,7 @@
 .landing-content p {
   font-size: 18px;
   line-height: 1.6;
-  color: #64748b;
+  color: var(--muted-text);
   max-width: 520px;
   margin-bottom: 32px;
 }
@@ -43,6 +66,17 @@
   margin: 12px 0;
   opacity: 1;
   filter: none;
+  border-radius:16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  opacity:0px;
+  transform:translateY(20px);
+  animation: imageFadeUp 0.8s ease forwards;
+}
+@keyframes imageFadeUp{
+to{
+  opacity:1;
+  transform:translateY(0)
+}
 }
 
 /* ===== Actions ===== */
@@ -99,7 +133,7 @@
             /* social cards */
 .social-cards-section {
   padding: 120px 20px;
-  background: #f8fafc;
+  background: var(--bg-color);
   text-align: center;
   margin-top:40px;
 }
@@ -120,11 +154,31 @@
 
 /* Card */
 .social-card {
-  background: #ffffff;
+  background:var(--card-bg);
   padding: 32px 24px;
   border-radius: 20px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.06);
-  animation:fadeUp 0.8s ease forwards
+  opacity:0px;
+  transform:translateY(30px);
+  animation:cardFadeUp 0.8s ease forwards
+}
+
+.social-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.social-card:nth-child(2) {
+  animation-delay: 0.25s;
+}
+.social-card:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+
+@keyframes cardFadeUp{
+  to{
+    opacity:1;
+    transform:translateY(0)
+  }
 }
 
 .social-card img {
@@ -135,22 +189,14 @@
 .social-card h3 {
   font-size: 20px;
   margin-bottom: 10px;
+  color:var(--text-color)
 }
 
 .social-card p {
   font-size: 15px;
-  color: #64748b;
+  color: var(--muted-text);
 }
-/* animation */
-@keyframes fadeUp{
-  from{
-opacity:0;
-transform:translateY(30px)
-  }to{
-    opacity:1;
-    transform:translateY(0);
-  }
-}
+
 
 
 @media (max-width: 768px) {

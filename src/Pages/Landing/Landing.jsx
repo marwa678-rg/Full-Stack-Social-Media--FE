@@ -4,9 +4,12 @@ import "./landing.css";
 import { useNavigate } from "react-router-dom";
 import { PublicNavbar } from "../../Components/Navbar/PublicNavbar/PublicNavbar";
 import { Footer } from "../../Components/Footer/Footer";
+import { useTheme } from "../../context/ThemeContext";
 
 
 export function Landing() {
+  //custom hook of theme Dark / light mode
+  const{theme,toggleTheme}= useTheme();
 //navigate
 const go = useNavigate();
 
@@ -22,6 +25,13 @@ function handleGetStarted(){
     <>
   <section className="landing">
   <div className="landing-wrapper">
+
+    {/* Dark mode Button🌛 */}
+    <button className="landing-theme-toggle"
+            onClick={toggleTheme}
+    >
+      {theme ==="dark" ? "🌞" :"🌛"}
+    </button>
 
     <div className="landing-content">
       <h1>

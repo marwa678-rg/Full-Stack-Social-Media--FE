@@ -1,0 +1,39 @@
+
+/* ===== Global Styles ===== */
+
+:root {
+  --bg-color: #ffffff;
+  --text-color: #0f172a;
+  --primary: #7c3aed;
+  --muted-text: #64748b;
+  --card-bg: #ffffff;
+  --border-color: #e5e7eb;
+  --nav-bg:linear-gradient(135deg, #6d28d9, #7c3aed);
+  --nav-text:#ffffff;
+}
+
+/* Dark mode */
+body.dark {
+  --bg-color: #0b1120;
+  --muted-text: #94a3b8;
+  --card-bg: #1e293b;
+  --text-color: #f8fafc;
+  --border-color: #334155;
+  
+  --primary: #8b5cf6;
+
+  --nav-bg:linear-gradient(135deg, #2e1065, #4c1d95);
+  --nav-text: #f8fafc;
+}
+body.dark .feed-navbar {
+  background: linear-gradient(135deg, #2e1065, #4c1d95);
+}
+
+body.dark .notification-bell {
+  color: #f8fafc;
+}
+
+body {
+  background: var(--bg-color);
+  color: var(--text-color);
+}

@@ -2,7 +2,9 @@
 .post-card {
   border-radius: 16px;
   overflow:hidden;
-  box-shadow:0 8px 20px rgba(0,0,0,0.05)
+  box-shadow:0 8px 20px rgba(0,0,0,0.05);
+  color:var(--text-color);
+  background: var(--card-bg);
 }
 
 .post-avatar {
@@ -26,11 +28,11 @@
 .post-icon {
   cursor: pointer;
   font-size: 18px;
-  color: #65676b;
+  color: var(--muted-text);
 }
 
 .post-icon:hover {
-  color: #000;
+  color:var(--text-color);
 }
 
 .post-icon.delete:hover {
