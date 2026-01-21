@@ -1,8 +1,10 @@
 
 
 //Get CurrentEnvironment And Set BaseUrl 
+
+
  export function baseUrlHandler(){
-  return JSON.parse(import.meta.env.VITE_PRODUCTION_ENV) ?
+  return import.meta.env.PROD?
   import.meta.env.VITE_BACKEND_BASE :
   import.meta.env.VITE_BACKEND_BASE_LOCAL;
 }
